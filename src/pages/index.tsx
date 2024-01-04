@@ -1,8 +1,9 @@
-import { Header } from "@/components";
-import { Inter } from "next/font/google";
+import { Login } from "@/templates/Login";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  return <Header />;
+export default function Index() {
+  return (
+    <>
+      <Login />
+    </>
+  );
 }

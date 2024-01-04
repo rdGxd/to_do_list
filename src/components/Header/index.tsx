@@ -1,3 +1,10 @@
 export const Header = () => {
-  return <h1>Oi</h1>;
+  return (
+    <>
+      {/* <header>
+        <nav>Inicio</nav>
+        <nav>Login</nav>
+      </header> */}
+    </>
+  );
 };
