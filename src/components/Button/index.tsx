@@ -6,7 +6,7 @@ interface ButtonProps {
 
 export const Button = ({ type, text, value }: ButtonProps) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // e.preventDefault();
+    e.preventDefault();
     console.log(value);
   };
 
