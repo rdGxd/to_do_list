@@ -6,7 +6,7 @@ interface LabelProps {
 export const Label = ({ htmlFor, value }: LabelProps) => {
   return (
     <>
-      <label htmlFor={htmlFor} className="text-sm text-[#081735]">
+      <label htmlFor={htmlFor} className=" flex text-sm text-[#081735]">
         {value}
       </label>
     </>

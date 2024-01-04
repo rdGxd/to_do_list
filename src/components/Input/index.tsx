@@ -6,14 +6,14 @@ interface InputProps {
   placeholder: string;
   name: string;
   id: string;
-  typeImg?: "email" | "password";
+  typeImg?: "email" | "password" | "checkbox";
 }
 
 export const Input = ({ id, name, type, placeholder, typeImg }: InputProps) => {
   return (
     <>
       {typeImg === "email" && (
-        <div className="relative mb-6">
+        <div className="relative mb-6 mt-2">
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
             <Image src={emailIcon} alt="icon password" />
           </div>
@@ -28,7 +28,7 @@ export const Input = ({ id, name, type, placeholder, typeImg }: InputProps) => {
       )}
 
       {typeImg === "password" && (
-        <div className="relative mb-6 flex">
+        <div className="relative mb-6 mt-2 flex">
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
             <Image src={passwordIcon} alt="icon password" />
           </div>
@@ -40,6 +40,16 @@ export const Input = ({ id, name, type, placeholder, typeImg }: InputProps) => {
             placeholder={placeholder}
           />
         </div>
+      )}
+
+      {typeImg === "checkbox" && (
+        <input
+          className="mr-2  flex"
+          type={type}
+          name={name}
+          id={id}
+          placeholder={placeholder}
+        />
       )}
     </>
   );
