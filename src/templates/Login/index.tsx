@@ -29,7 +29,7 @@ export const Login = () => {
           <span className="h-[0.5px] w-1/4 bg-[#E6E8F0]"></span>
         </div>
         {/* FORM DE LOGIN */}
-        <form action="" className="p-4">
+        <form method="POST" className="p-4" action="">
           <Label htmlFor="email" value="Email address" />
           <Input
             id="email"
@@ -62,6 +62,7 @@ export const Login = () => {
           <br />
           <Button text="Login" type="submit" />
         </form>
+        {/* LINK PARA CRIAR CONTA */}
         <div>
           <Link href="#" className="text-black">
             Não registrado ainda?
