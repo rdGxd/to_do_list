@@ -1,9 +1,18 @@
 import { githubIcon, googleIcon } from "@/assets";
 import { Button, Input, Label } from "@/components";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Login = () => {
+  const handleLoginGoogle = async () => {
+    await signIn("google", { callbackUrl: "/create" });
+  };
+
+  const handleLoginGithub = async () => {
+    await signIn("github", { callbackUrl: "/create" });
+  };
+
   return (
     <main className="flex flex-wrap content-center items-center justify-center text-center">
       <header className="mt-10 flex flex-wrap items-center justify-center">
@@ -16,12 +25,20 @@ export const Login = () => {
         {/* Google LOGIN */}
         <div className="GOOGLE ml-12 mt-5 flex w-fit justify-center rounded border p-4">
           <Image src={googleIcon} alt="Icon Google" className="mr-2" />
-          <Button text="Faça login no Google" type="button" value="Google" />
+          <Button
+            text="Faça login no Google"
+            type="button"
+            onClick={handleLoginGoogle}
+          />
         </div>
         {/* Github LOGIN */}
         <div className="GITHUB ml-12 mt-5 flex w-fit justify-center rounded border p-4">
           <Image src={githubIcon} alt="Icon GitHub" className="mr-2" />
-          <Button text="Faça login no GitHub" type="button" value="Github" />
+          <Button
+            text="Faça login no GitHub"
+            type="button"
+            onClick={handleLoginGithub}
+          />
         </div>
         <div className="mt-6 flex items-center justify-center ">
           <span className="h-[0.5px] w-1/5 bg-[#E6E8F0]"></span>

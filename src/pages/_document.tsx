@@ -1,4 +1,3 @@
-import { Header } from "@/components";
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -7,7 +6,6 @@ export default function Document() {
       <title>To do list</title>
       <Head />
       <body>
-        <Header />
         <Main />
         <NextScript />
       </body>

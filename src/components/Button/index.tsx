@@ -1,16 +1,12 @@
-import { signIn } from "next-auth/react";
-
 interface ButtonProps {
   type: "submit" | "button" | "reset";
-  value?: "Google" | "Github";
+  onClick?: () => void;
   text: string;
 }
 
-export const Button = ({ type, text, value }: ButtonProps) => {
-  const handleClick = async () => {
-    if (value === "Github") await signIn("github");
-
-    if (value === "Google") await signIn("google");
+export const Button = ({ type, text, onClick }: ButtonProps) => {
+  const handleClick = () => {
+    if (onClick) onClick();
   };
 
   return (
@@ -18,14 +14,13 @@ export const Button = ({ type, text, value }: ButtonProps) => {
       {type === "submit" ? (
         <button
           type={type}
-          value={value}
           onClick={handleClick}
           className="w-full rounded-lg bg-[#6C5DD3] p-5 font-bold text-white"
         >
           {text}
         </button>
       ) : (
-        <button type={type} value={value} onClick={handleClick}>
+        <button type={type} onClick={handleClick}>
           {text}
         </button>
       )}
