@@ -1,3 +1,5 @@
+import { signIn } from "next-auth/react";
+
 interface ButtonProps {
   type: "submit" | "button" | "reset";
   value?: "Google" | "Github";
@@ -5,9 +7,10 @@ interface ButtonProps {
 }
 
 export const Button = ({ type, text, value }: ButtonProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log(value);
+  const handleClick = async () => {
+    if (value === "Github") await signIn("github");
+
+    if (value === "Google") await signIn("google");
   };
 
   return (

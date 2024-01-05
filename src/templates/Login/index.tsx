@@ -13,10 +13,12 @@ export const Login = () => {
         </span>
       </header>
       <div>
+        {/* Google LOGIN */}
         <div className="GOOGLE ml-12 mt-5 flex w-fit justify-center rounded border p-4">
           <Image src={googleIcon} alt="Icon Google" className="mr-2" />
           <Button text="Faça login no Google" type="button" value="Google" />
         </div>
+        {/* Github LOGIN */}
         <div className="GITHUB ml-12 mt-5 flex w-fit justify-center rounded border p-4">
           <Image src={githubIcon} alt="Icon GitHub" className="mr-2" />
           <Button text="Faça login no GitHub" type="button" value="Github" />
