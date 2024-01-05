@@ -1,6 +1,5 @@
 import { emailIcon, passwordIcon } from "@/assets";
 import Image from "next/image";
-import { useState } from "react";
 
 interface InputProps {
   type: string;
@@ -11,14 +10,12 @@ interface InputProps {
 }
 
 export const Input = ({ id, name, type, placeholder, typeImg }: InputProps) => {
-  const [check, setCheck] = useState(false);
-
   return (
     <>
       {typeImg === "email" && (
         <div className="relative mb-6 mt-2">
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-            <Image src={emailIcon} alt="icon password" />
+            <Image src={emailIcon} alt="icon password" placeholder="empty" />
           </div>
           <input
             type={type}
@@ -33,7 +30,7 @@ export const Input = ({ id, name, type, placeholder, typeImg }: InputProps) => {
       {typeImg === "password" && (
         <div className="relative mb-6 mt-2 flex">
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-            <Image src={passwordIcon} alt="icon password" />
+            <Image src={passwordIcon} alt="icon password" placeholder="empty" />
           </div>
           <input
             className="flex w-full rounded-lg border border-[#D8DAE5]  p-4 ps-12  font-bold text-gray-900"
@@ -43,18 +40,6 @@ export const Input = ({ id, name, type, placeholder, typeImg }: InputProps) => {
             placeholder={placeholder}
           />
         </div>
-      )}
-
-      {typeImg === "checkbox" && (
-        <input
-          className="mr-2 flex"
-          type={type}
-          onChange={() => setCheck(!check)}
-          checked={check}
-          name={name}
-          id={id}
-          placeholder={placeholder}
-        />
       )}
     </>
   );
