@@ -3,3 +3,4 @@ export * as emailIcon from "@/assets/Icons/Email.svg";
 export * as passwordIcon from "@/assets/Icons/Password.svg";
 export * as githubIcon from "@/assets/Icons/Github.svg";
 export * as MenuMobileIcon from "@/assets/Icons/MenuMobile.svg";
+export * as CloseMenuMobileIcon from "@/assets/Icons/CloseMenuMobile.svg";
