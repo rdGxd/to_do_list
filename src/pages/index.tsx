@@ -1,4 +1,4 @@
-import { Login } from "@/templates/Login";
+import { Home } from "@/templates/Home";
 import { useSession } from "next-auth/react";
 
 export default function IndexPage() {
@@ -7,7 +7,7 @@ export default function IndexPage() {
   return (
     <>
       <h1>{session && `${session.user?.email} ${session.user?.name} `}</h1>
-      <Login />
+      <Home />
     </>
   );
 }
