@@ -6,7 +6,7 @@ export default function IndexPage() {
 
   return (
     <>
-      <h1>{session ? session.user?.email : ""}</h1>
+      <h1>{session && `${session.user?.email} ${session.user?.name} `}</h1>
       <Login />
     </>
   );
