@@ -115,9 +115,6 @@ export const getServerSideProps = async (ctx: any) => {
       where: {
         author: { email: session?.user?.email },
       },
-      orderBy: {
-        created_at: "desc",
-      },
     });
 
     return {
