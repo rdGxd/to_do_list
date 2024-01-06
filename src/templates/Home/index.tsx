@@ -10,7 +10,7 @@ export const Home = () => {
   const { push } = useRouter();
 
   useEffect(() => {
-    if (session?.user) push("/create");
+    if (session) push("/create");
   });
 
   const handleLoginGoogle = async () => {
@@ -45,7 +45,7 @@ export const Home = () => {
           />
         </div>
         {/* Github LOGIN */}
-        <section className="GITHUB  mt-5 flex w-fit justify-center rounded border p-4">
+        <div className="mt-5 flex w-fit justify-center rounded border p-4">
           <Image
             src={githubIcon}
             alt="Icon GitHub"
@@ -53,11 +53,11 @@ export const Home = () => {
             placeholder="empty"
           />
           <Button
-            text="Faça login no GitHub"
+            text="Faça login no Github"
             type="button"
             onClick={handleLoginGithub}
           />
-        </section>
+        </div>
       </section>
     </main>
   );
