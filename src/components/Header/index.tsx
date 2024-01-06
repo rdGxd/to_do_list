@@ -23,7 +23,7 @@ export const Header = () => {
   return (
     <>
       <header>
-        {session?.user && (
+        {session?.user ? (
           <>
             {toggleMenu ? (
               <div className="h-screen w-screen content-center p-2">
@@ -70,6 +70,8 @@ export const Header = () => {
               </div>
             )}
           </>
+        ) : (
+          ""
         )}
       </header>
     </>

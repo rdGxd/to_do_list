@@ -6,10 +6,11 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export const Home = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { push } = useRouter();
 
   useEffect(() => {
+    if (status === "loading") return;
     if (session) push("/create");
   });
 
