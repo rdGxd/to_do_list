@@ -3,16 +3,13 @@ import { Button } from "@/components";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export const Home = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const { push } = useRouter();
 
-  useEffect(() => {
-    if (status === "loading") return;
-    if (session) push("/create");
-  });
+  if (status === "loading") return;
+  if (status === "authenticated") push("/create");
 
   const handleLoginGoogle = async () => {
     await signIn("google", { callbackUrl: "/create" });

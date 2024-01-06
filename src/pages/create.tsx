@@ -1,8 +1,9 @@
 import { Trash } from "@/assets";
+import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { prisma } from "../../prisma/lib/prisma";
 
 interface tasksDate {
@@ -23,10 +24,8 @@ export default function Create({ tasks = [] }: tasksProps) {
   const [task, setTask] = useState("");
   const user = session?.user?.email as string;
 
-  useEffect(() => {
-    if (status === "loading") return;
-    if (!user) push("/");
-  });
+  if (status === "loading") return;
+  if (status !== "authenticated") push("/");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
@@ -100,8 +99,17 @@ export default function Create({ tasks = [] }: tasksProps) {
   );
 }
 
-export const getServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
+export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
+  const session = await getSession({ ctx });
+
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
 
   try {
     const result = await prisma.post.findMany({
