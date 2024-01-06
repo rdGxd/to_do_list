@@ -86,9 +86,12 @@ export default function Create({ tasks = [] }: tasksProps) {
       </div>
       {/* PEGANDO TASKS */}
       {tasks.map((task) => (
-        <div className="flex justify-between border p-3 text-sm" key={task.id}>
+        <div
+          className="mb-2 flex justify-between border p-4 text-sm font-bold"
+          key={task.id}
+        >
           <h3>{task.title}</h3>
-          <div onClick={() => handleDelete(task.id)}>
+          <div onClick={() => handleDelete(task.id)} className="cursor-pointer">
             <Image src={Trash} alt="delete" />
           </div>
         </div>
@@ -105,10 +108,16 @@ export const getServerSideProps = async (ctx) => {
       where: {
         author: { email: session?.user?.email },
       },
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
     });
+
     return {
       props: {
-        tasks: result,
+        tasks: JSON.parse(JSON.stringify(result)),
       },
     };
   } catch (error) {
