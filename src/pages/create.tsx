@@ -99,7 +99,7 @@ export default function Create({ tasks = [] }: tasksProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx: any) => {
+export const getServerSideProps = async (ctx: any) => {
   const session = await getSession({ ctx });
 
   if (!session) {

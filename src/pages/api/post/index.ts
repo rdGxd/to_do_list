@@ -1,6 +1,6 @@
 import { prisma } from "../../../../prisma/lib/prisma";
 
-export default async function handle(req, res) {
+export default async function handle(req: any, res: any) {
   const { task, user } = req.body;
 
   const result = await prisma.post.create({
