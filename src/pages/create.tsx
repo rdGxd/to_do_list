@@ -1,5 +1,4 @@
 import { Trash } from "@/assets";
-import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -116,11 +115,9 @@ export const getServerSideProps = async (ctx: any) => {
       where: {
         author: { email: session?.user?.email },
       },
-      orderBy: [
-        {
-          createdAt: "desc",
-        },
-      ],
+      orderBy: {
+        created_at: "desc",
+      },
     });
 
     return {
