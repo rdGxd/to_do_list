@@ -1,6 +1,6 @@
-import { Trash } from "@/assets";
+import { CreateTasks, Loading, ShowTasks } from "@/templates";
+import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { prisma } from "../../prisma/lib/prisma";
@@ -12,103 +12,34 @@ interface tasksDate {
   authorId: string;
 }
 
-interface tasksProps {
+export interface tasksProps {
   tasks: tasksDate[];
 }
 
 export default function Create({ tasks = [] }: tasksProps) {
-  const { data: session, status } = useSession();
-  const { reload, push } = useRouter();
   const [enabledButton, setEnabledButton] = useState(false);
-  const [task, setTask] = useState("");
-  const user = session?.user?.email as string;
+  const { data: session, status } = useSession();
+  const { push } = useRouter();
 
-  if (status === "loading") return;
+  if (status === "loading") return <Loading />;
   if (status !== "authenticated") push("/");
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === "Enter") {
-      handleClick();
-    }
-  };
-
-  const handleClick = async () => {
-    setEnabledButton(true);
-    try {
-      const body = { task, user };
-      await fetch("/api/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-    } catch (error) {
-      //
-    }
-    reload();
-    setEnabledButton(false);
-  };
-
-  const handleDelete = async (id: string) => {
-    try {
-      await fetch(`/api/post/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
-      reload();
-    } catch (error) {
-      //
-    }
-  };
+  const user = session?.user?.email as string;
 
   return (
     <>
-      {/* CRIANDO TASKS */}
-      <div className="mb-6 mt-2 flex">
-        <input
-          disabled={enabledButton}
-          type="text"
-          value={task}
-          className="block w-full rounded-lg border border-[#D8DAE5]  p-4 ps-5 font-bold text-gray-900"
-          placeholder="Digite sua tarefa"
-          onChange={(e) => setTask(e.currentTarget.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <button
-          className="rounded bg-gradient-to-r from-[#07FDFD] via-[#4D69FE] to-[#CC00FF] px-6 py-4 text-white disabled:opacity-50"
-          disabled={enabledButton}
-          onClick={handleClick}
-        >
-          Salvar
-        </button>
-      </div>
-      {/* PEGANDO TASKS */}
-      {tasks.map((task) => (
-        <div
-          className="mb-2 flex justify-between border p-4 text-sm font-bold"
-          key={task.id}
-        >
-          <h3>{task.title}</h3>
-          <div onClick={() => handleDelete(task.id)} className="cursor-pointer">
-            <Image src={Trash} alt="delete" />
-          </div>
-        </div>
-      ))}
+      <CreateTasks user={user} value={enabledButton} set={setEnabledButton} />
+      <ShowTasks
+        tasks={tasks}
+        user={user}
+        set={setEnabledButton}
+        value={enabledButton}
+      />
     </>
   );
 }
 
-export const getServerSideProps = async (ctx: any) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession({ ctx });
-
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
 
   try {
     const result = await prisma.post.findMany({
@@ -121,7 +52,6 @@ export const getServerSideProps = async (ctx: any) => {
         },
       ],
     });
-
     return {
       props: {
         tasks: JSON.parse(JSON.stringify(result)),
@@ -130,4 +60,8 @@ export const getServerSideProps = async (ctx: any) => {
   } catch (error) {
     //
   }
+
+  return {
+    props: {},
+  };
 };

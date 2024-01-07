@@ -6,7 +6,6 @@ export default async function handle(req: any, res: any) {
   const result = await prisma.post.create({
     data: {
       title: task,
-      content: task,
       published: true,
       author: { connect: { email: user } },
     },
